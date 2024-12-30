@@ -66,7 +66,7 @@ SnipSlide/
 ---
 
 ## Contribution
-- **Author**: Adrian
+- **Author**: GhostVPN
 - **Version**: Beta 1.0
 - **License**: MIT
 
