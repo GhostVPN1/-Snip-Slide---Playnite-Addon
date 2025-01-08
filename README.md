@@ -1,22 +1,18 @@
 # Snip-Slide - Playnite Addon
 
-## Project Structure
-```
-SnipSlide/
+Snip-Slide/
 ├── src/
 │   ├── main.js
 │   ├── styles.css
 │   ├── utils.js
 │   └── popupHandler.js
 ├── assets/
-│   ├── icons/
-│   └── images/
+│   └── (Hier könnten später Icons oder Bilder liegen)
 ├── lib/
-│   └── externalLib.js
+│   └── (Hier könnten später externe Bibliotheken liegen)
 ├── README.md
 ├── manifest.json
 └── LICENSE
-```
 
 ---
 
