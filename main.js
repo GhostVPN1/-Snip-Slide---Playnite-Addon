@@ -4,15 +4,14 @@ import { addEventListeners } from './utils.js';
 let popupVisible = false;
 let triggerArea;
 let popup;
-let allGames = {}; // Speichert alle Spiele
+let allGames = {};
 
-// Konfiguration
-const triggerPosition = 'left'; // 'left' oder 'right'
+const triggerPosition = 'left';
 
 function initialize() {
     triggerArea = document.createElement('div');
     triggerArea.id = 'snip-slide-trigger';
-    triggerArea.style[triggerPosition] = '0'; // Positionierung basierend auf der Konfiguration
+    triggerArea.style[triggerPosition] = '0';
     document.body.appendChild(triggerArea);
 
     popup = document.createElement('div');
@@ -36,11 +35,9 @@ function initialize() {
     let ul = document.createElement('ul');
     popup.appendChild(ul);
 
-
     addEventListeners(triggerArea, 'mouseover', () => {
         handlePopupVisibility(true);
-
-        if (popup.querySelector('ul').children.length === 0) {
+        if (ul.children.length === 0) { // Direkte Prüfung der Anzahl der Kindelemente
             loadGames();
         }
     });
@@ -68,12 +65,13 @@ function loadGames() {
 
 function populatePlatformFilter() {
     const platformFilter = document.getElementById("platform-filter");
+    platformFilter.innerHTML = ""; // Filter zurücksetzen
     const platforms = new Set();
     platforms.add("Alle");
 
     for (const gameId in allGames) {
         const game = allGames[gameId];
-        if(game.Platforms) {
+        if (game.Platforms) {
             game.Platforms.forEach(platform => platforms.add(platform.Name));
         }
     }
@@ -90,14 +88,14 @@ function filterGames() {
     const searchTerm = document.getElementById('game-search').value.toLowerCase();
     const selectedPlatform = document.getElementById("platform-filter").value;
     const ul = popup.querySelector('ul');
-    ul.innerHTML = ''; // Liste leeren
+    ul.innerHTML = '';
 
     const filteredGames = Object.values(allGames).filter(game => {
         const nameMatch = game.Name.toLowerCase().includes(searchTerm);
         let platformMatch = true;
 
-        if(selectedPlatform !== "Alle") {
-            if(game.Platforms) {
+        if (selectedPlatform !== "Alle") {
+            if (game.Platforms) {
                 platformMatch = game.Platforms.some(platform => platform.Name === selectedPlatform);
             } else {
                 platformMatch = false;
@@ -105,7 +103,6 @@ function filterGames() {
         }
         return nameMatch && platformMatch;
     }).sort((a, b) => a.Name.localeCompare(b.Name));
-
 
     if (filteredGames.length === 0) {
         displayErrorMessage("Keine Spiele gefunden.");
@@ -116,7 +113,24 @@ function filterGames() {
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.href = "#";
-        a.textContent = game.Name;
+
+        const coverImage = document.createElement('img');
+        coverImage.classList.add('game-cover');
+
+        if (game.CoverImage) {
+            coverImage.src = playnite.GetImage(game.CoverImage);
+            coverImage.onerror = () => {
+                coverImage.src = 'assets/placeholder.png'; // Pfad zum Platzhalterbild
+            };
+        } else {
+            coverImage.src = 'assets/placeholder.png'; // Pfad zum Platzhalterbild
+        }
+        a.appendChild(coverImage);
+
+        const gameNameSpan = document.createElement('span');
+        gameNameSpan.textContent = game.Name;
+        a.appendChild(gameNameSpan);
+
         a.addEventListener('click', () => {
             playnite.startgame(game.Id);
             handlePopupVisibility(false);
