@@ -1,5 +1,6 @@
 # Snip-Slide - Playnite Addon
 
+## Structur
 Snip-Slide/
 ├── src/
 │   ├── main.js
