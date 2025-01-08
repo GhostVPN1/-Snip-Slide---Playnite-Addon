@@ -1,0 +1,24 @@
+{
+  "id": "snip-slide",
+  "name": "Snip-Slide",
+  "version": "0.1", // Versionsnummer aktualisiert
+  "author": "Ghost",
+  "description": "Ein Edge-Triggered Popup für schnellen Spielzugriff mit Filter-, Suchfunktion und Cover-Anzeige.",
+  "main": "src/main.js",
+  "scripts": [
+    "src/main.js",
+    "src/utils.js",
+    "src/popupHandler.js"
+  ],
+  "styles": [
+    "src/styles.css"
+  ],
+  "icon": "assets/icon.png", // Pfad zum Icon (optional)
+  "settings": {
+    "hasSettings": false // Ob das Addon Konfigurationseinstellungen hat
+  },
+  "supportedPlatforms": [ // Unterstützte Playnite Versionen
+    "9.0"
+  ],
+  "module": "global" // wichtig für globalen zugriff
+}
